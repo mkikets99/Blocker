@@ -98,8 +98,8 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     Intent intent = packageManager.getLaunchIntentForPackage(apps.get(i).name.toString());
-                    assert intent != null;
-                    intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                    //assert intent != null;
+                    //intent.addCategory(Intent.CATEGORY_LAUNCHER);
                     MainActivity.this.startActivity(intent);
                     //MainActivity.this.finish();
                 }
