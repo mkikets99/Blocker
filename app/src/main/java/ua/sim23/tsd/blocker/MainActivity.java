@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                     assert intent != null;
                     intent.addCategory(Intent.CATEGORY_LAUNCHER);
                     MainActivity.this.startActivity(intent);
-                    MainActivity.this.finish();
+                    //MainActivity.this.finish();
                 }
             });
         } catch (Exception ex) {
