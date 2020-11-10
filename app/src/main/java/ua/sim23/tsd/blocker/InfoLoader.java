@@ -14,12 +14,24 @@ import java.util.Set;
 public class InfoLoader {
     private static Set<String> checkedApps;
     private static SharedPreferences sp;
+    private static String Password;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public static void Load(MainActivity activity){
         sp = activity.getSharedPreferences(activity.getPackageName() , Context.MODE_PRIVATE);
         checkedApps = sp.getStringSet("saved apps",new ArraySet<String>());
+        Password = sp.getString("password",null);
 
+    }
+    public static boolean passwordChack(String pass){
+        return Password.equals(pass);
+    }
+    public static boolean isPassSet(){
+        return Password != null;
+    }
+    public static void setPassword(String password){
+        Password = password;
+        sp.edit().putString("password",Password).apply();
     }
 
     public static void addAppToList(String pack){

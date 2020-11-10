@@ -4,11 +4,13 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
+
+import ua.sim23.tsd.blocker.dialogs.Prompt;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,8 +49,22 @@ public class MainActivity extends AppCompatActivity {
         openList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final Prompt promp = new Prompt(MainActivity.this);
+                if(!InfoLoader.isPassSet()) promp.setMessage("Set password");
+                else promp.setMessage("GivePassword");
+                promp.SetPromptType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                promp.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(InfoLoader.isPassSet()&&InfoLoader.passwordChack(promp.GetValue())){
                 Intent i = new Intent(MainActivity.this,ListAllApps.class);
                 startActivityForResult(i,1);
+                        }else if(!InfoLoader.isPassSet()){
+                            InfoLoader.setPassword(promp.GetValue());
+                        }
+                    }
+                });
+                promp.show();
 
             }
         });
@@ -96,11 +114,12 @@ public class MainActivity extends AppCompatActivity {
         try {
             AppListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Intent intent = packageManager.getLaunchIntentForPackage(apps.get(i).name.toString());
-                    //assert intent != null;
-                    //intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                    MainActivity.this.startActivity(intent);
+                public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
+
+                                Intent intent = packageManager.getLaunchIntentForPackage(apps.get(i).name.toString());
+                                //assert intent != null;
+                                //intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                                MainActivity.this.startActivity(intent);
                     //MainActivity.this.finish();
                 }
             });
