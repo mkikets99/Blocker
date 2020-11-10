@@ -33,7 +33,7 @@ public class InfoLoader {
         a = activity;
         try {
             String Apps = FileRead("savedapps");
-            checkedApps = Arrays.asList(Apps.split("\\r?\\n"));
+            checkedApps = Arrays.asList(Apps.split("#"));
             if(checkedApps==null) checkedApps = new ArrayList<String>();
             Password = FileRead("password");
         }catch(Exception e){
@@ -74,7 +74,7 @@ public class InfoLoader {
     public static void addAppToList(String pack){
         checkedApps.add(pack);
         try {
-            String delim = "\n";
+            String delim = "#";
 
             StringBuilder sb = new StringBuilder();
 
@@ -96,7 +96,7 @@ public class InfoLoader {
     public static void delAppToList(String pack){
         checkedApps.remove(pack);
         try {
-            String delim = "|";
+            String delim = "#";
 
             StringBuilder sb = new StringBuilder();
 
