@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".ListAllApps">
 
+    <EditText
+        android:id="@+id/nameOrPack"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Name or package"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ListView
         android:id="@+id/AppListView"
         android:layout_width="0dp"
@@ -14,7 +25,7 @@
         app:layout_constraintBottom_toTopOf="@+id/RefreshButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/nameOrPack">
 
     </ListView>
 

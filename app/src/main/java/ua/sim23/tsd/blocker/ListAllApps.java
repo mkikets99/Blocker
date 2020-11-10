@@ -10,13 +10,17 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -33,8 +37,10 @@ public class ListAllApps extends AppCompatActivity {
     PackageManager packageManager;
 
     public static List<AppInfo> apps;
+    public static List<AppInfo> vapps;
     ListView AppListView;
     Button refresh;
+    EditText nameOrPack;
     public static ArrayAdapter<AppInfo> adapter;
     MainActivity ma;
 
@@ -44,7 +50,40 @@ public class ListAllApps extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_list_all_apps);
+        nameOrPack = findViewById(R.id.nameOrPack);
+        nameOrPack.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //Toast.makeText(ListAllApps.this,"before",Toast.LENGTH_SHORT).show();
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //Toast.makeText(ListAllApps.this,"Changed",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //
+                String text = s.toString();
+//                Toast.makeText(ListAllApps.this,text,Toast.LENGTH_SHORT).show();
+                vapps.clear();
+                for(AppInfo app : apps){
+                    if(app.name.toString().contains(text)||app.label.toString().contains(text)){
+                        vapps.add(app);
+                    }
+                }
+                vapps.sort(new Comparator<AppInfo>() {
+                    @Override
+                    public int compare(AppInfo o1, AppInfo o2) {
+                        return o1.label.toString().compareTo(o2.label.toString());
+                    }
+                });
+                adapter.notifyDataSetChanged();
+            }
+        });
+        /**/
 
         refresh = findViewById(R.id.RefreshButton);
 
@@ -89,7 +128,7 @@ public class ListAllApps extends AppCompatActivity {
         try {
             AppListView = (ListView) findViewById(R.id.AppListView);
             if (adapter == null) {
-                adapter = new ArrayAdapter<AppInfo>(this, R.layout.item_element, apps) {
+                adapter = new ArrayAdapter<AppInfo>(this, R.layout.item_element, vapps) {
 
                     @Override
                     public View getView(int position, View convertView, ViewGroup parent) {
@@ -111,7 +150,7 @@ public class ListAllApps extends AppCompatActivity {
                             viewHolder = (ViewHolderItem) convertView.getTag();
                         }
 
-                        final AppInfo appInfo = apps.get(position);
+                        final AppInfo appInfo = vapps.get(position);
 
                         if (appInfo != null) {
                             viewHolder.icon.setImageDrawable(appInfo.icon);
@@ -157,6 +196,7 @@ public class ListAllApps extends AppCompatActivity {
             packageManager = getPackageManager();
             if (apps == null) {
                 apps = new ArrayList<AppInfo>();
+                vapps = new ArrayList<AppInfo>();
 
                 Intent i = new Intent(Intent.ACTION_MAIN, null);
                 i.addCategory(Intent.CATEGORY_LAUNCHER);
@@ -170,8 +210,9 @@ public class ListAllApps extends AppCompatActivity {
                     apps.add(appinfo);
 
                 }
-
-                apps.sort(new Comparator<AppInfo>() {
+                vapps.clear();
+                vapps.addAll(apps);
+                vapps.sort(new Comparator<AppInfo>() {
                     @Override
                     public int compare(AppInfo o1, AppInfo o2) {
                         return o1.label.toString().compareTo(o2.label.toString());
