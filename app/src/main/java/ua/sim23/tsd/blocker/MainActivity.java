@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent i = new Intent(Intent.ACTION_MAIN, null);
                 i.addCategory(Intent.CATEGORY_LAUNCHER);
-                Set<String> appList = InfoLoader.getCheckedApps();
+                List<String> appList = InfoLoader.getCheckedApps();
                 //List<ApplicationInfo> availableApps = packageManager.getInstalledApplications(PackageManager.GET_META_DATA);
                 for (String app : appList) {
                     AppInfo appinfo = new AppInfo();
