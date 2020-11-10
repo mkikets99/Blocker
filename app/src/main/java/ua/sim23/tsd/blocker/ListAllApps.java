@@ -1,5 +1,6 @@
 package ua.sim23.tsd.blocker;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -7,6 +8,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class ListAllApps extends AppCompatActivity {
@@ -35,6 +38,7 @@ public class ListAllApps extends AppCompatActivity {
     public static ArrayAdapter<AppInfo> adapter;
     MainActivity ma;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,6 +150,7 @@ public class ListAllApps extends AppCompatActivity {
         }
 
     }
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void loadApps() {
         try {
 
@@ -165,6 +170,13 @@ public class ListAllApps extends AppCompatActivity {
                     apps.add(appinfo);
 
                 }
+
+                apps.sort(new Comparator<AppInfo>() {
+                    @Override
+                    public int compare(AppInfo o1, AppInfo o2) {
+                        return o1.label.toString().compareTo(o2.label.toString());
+                    }
+                });
             }
 
         } catch (Exception ex) {
