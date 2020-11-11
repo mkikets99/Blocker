@@ -18,12 +18,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class InfoLoader {
-    private static List<String> checkedApps;
+    private static LinkedList<String> checkedApps;
     //private static SharedPreferences sp;
     private static Activity a;
     private static String Password;
@@ -34,12 +35,12 @@ public class InfoLoader {
         a = activity;
         try {
             String Apps = FileRead("savedapps");
-            checkedApps = Arrays.asList(Apps.split("#"));
-            if(checkedApps==null) checkedApps = new ArrayList<String>();
+            checkedApps = new LinkedList<String>(Arrays.asList(Apps.split("#")));
+            if(checkedApps==null) checkedApps = new LinkedList<String>();
             Password = FileRead("password");
         }catch(Exception e){
             e.printStackTrace();
-            checkedApps = new ArrayList<String>();
+            checkedApps = new LinkedList<String>();
         }
     }
     private static void FileWrite(String file, String data) throws IOException {
