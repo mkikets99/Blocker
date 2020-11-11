@@ -74,8 +74,8 @@ public class InfoLoader {
     }
 
     public static void addAppToList(String pack){
-        checkedApps.add(pack);
         try {
+            checkedApps.add(pack);
             String delim = "#";
 
             StringBuilder sb = new StringBuilder();
