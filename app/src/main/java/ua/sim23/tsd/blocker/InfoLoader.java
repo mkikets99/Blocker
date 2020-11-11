@@ -77,11 +77,11 @@ public class InfoLoader {
         try {
             Toast.makeText(a,"1",Toast.LENGTH_SHORT).show();
             checkedApps.add(pack);
-            Toast.makeText(a,"1",Toast.LENGTH_SHORT).show();
+            Toast.makeText(a,"2",Toast.LENGTH_SHORT).show();
             String delim = "#";
 
             StringBuilder sb = new StringBuilder();
-            Toast.makeText(a,"1",Toast.LENGTH_SHORT).show();
+            Toast.makeText(a,"3",Toast.LENGTH_SHORT).show();
 
             int i = 0;
             while (i < checkedApps.size() - 1) {
@@ -92,11 +92,11 @@ public class InfoLoader {
             sb.append(checkedApps.get(i));
 
             String res = sb.toString();
-            Toast.makeText(a,"1",Toast.LENGTH_SHORT).show();
+            Toast.makeText(a,"4",Toast.LENGTH_SHORT).show();
             FileWrite("savedapps",res);
-            Toast.makeText(a,"1",Toast.LENGTH_SHORT).show();
+            Toast.makeText(a,"5",Toast.LENGTH_SHORT).show();
         }catch(Exception e){
-            e.printStackTrace();
+            //e.printStackTrace();
             Toast.makeText(a,"Error(add):"+e.getMessage(),Toast.LENGTH_LONG).show();
         }
         //sp.edit().putStringSet("saved apps",checkedApps).apply();
