@@ -76,6 +76,7 @@ public class InfoLoader {
             FileWrite("password",password);
         }catch(Exception e){
             e.printStackTrace();
+            Toast.makeText(a,e.getMessage(),Toast.LENGTH_LONG);
         }
         //sp.edit().putString("password",Password).apply();
     }
@@ -99,6 +100,7 @@ public class InfoLoader {
             FileWrite("savedapps",res);
         }catch(Exception e){
             e.printStackTrace();
+            Toast.makeText(a,e.getMessage(),Toast.LENGTH_LONG);
         }
         //sp.edit().putStringSet("saved apps",checkedApps).apply();
     }
@@ -121,6 +123,7 @@ public class InfoLoader {
             FileWrite("savedapps",res);
         }catch(Exception e){
             e.printStackTrace();
+            Toast.makeText(a,e.getMessage(),Toast.LENGTH_LONG);
         }
         //sp.edit().putStringSet("saved apps",checkedApps).apply();
     }
