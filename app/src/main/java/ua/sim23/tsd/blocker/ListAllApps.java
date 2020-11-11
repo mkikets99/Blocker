@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -157,11 +158,11 @@ public class ListAllApps extends AppCompatActivity {
                             viewHolder.label.setText(appInfo.label);
                             viewHolder.name.setText(appInfo.name);
                             viewHolder.cb.setChecked(InfoLoader.isIncheckedApps(appInfo.name.toString()));
-                            viewHolder.cb.setOnClickListener(new View.OnClickListener() {
+                            viewHolder.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                                 @Override
-                                public void onClick(View v) {
+                                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                                     try {
-                                        if (!(InfoLoader.isIncheckedApps(appInfo.name.toString()))) {
+                                        if (isChecked) {
                                             InfoLoader.addAppToList(appInfo.name.toString());
 
                                         } else {
