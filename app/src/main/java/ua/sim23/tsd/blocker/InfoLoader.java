@@ -49,7 +49,7 @@ public class InfoLoader {
         File f = new File(a.getFilesDir().getAbsolutePath()+"/ua.sim23.tsd.blocker");
         Toast.makeText(a,f.getAbsolutePath(),Toast.LENGTH_LONG);
         f.mkdirs();
-        FileOutputStream fileOutputStream = a.openFileOutput(f.getPath()+"/"+file, Context.MODE_PRIVATE);
+        FileOutputStream fileOutputStream = a.openFileOutput(f.getAbsolutePath()+"/"+file, Context.MODE_PRIVATE);
         fileOutputStream.write(data.getBytes());
         fileOutputStream.close();
 //        sp.edit().putString(file,data);
@@ -57,7 +57,7 @@ public class InfoLoader {
     private static String FileRead(String file) throws IOException {
         File f = new File(a.getFilesDir().getAbsolutePath()+"/ua.sim23.tsd.blocker");
         Toast.makeText(a,f.getAbsolutePath(),Toast.LENGTH_LONG);
-        FileInputStream fileInputStream = a.openFileInput(f.getPath()+"/"+file);
+        FileInputStream fileInputStream = a.openFileInput(f.getAbsolutePath()+"/"+file);
         int read = -1;
         StringBuffer buffer = new StringBuffer();
         while((read =fileInputStream.read())!= -1){
