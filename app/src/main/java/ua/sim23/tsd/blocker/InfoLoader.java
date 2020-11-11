@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.util.ArraySet;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
@@ -67,6 +68,7 @@ public class InfoLoader {
             FileWrite("password",password);
         }catch(Exception e){
             e.printStackTrace();
+            Toast.makeText(a,e.getMessage(),Toast.LENGTH_LONG).show();
         }
         //sp.edit().putString("password",Password).apply();
     }
@@ -90,6 +92,7 @@ public class InfoLoader {
             FileWrite("savedapps",res);
         }catch(Exception e){
             e.printStackTrace();
+            Toast.makeText(a,e.getMessage(),Toast.LENGTH_LONG).show();
         }
         //sp.edit().putStringSet("saved apps",checkedApps).apply();
     }
@@ -112,6 +115,7 @@ public class InfoLoader {
             FileWrite("savedapps",res);
         }catch(Exception e){
             e.printStackTrace();
+            Toast.makeText(a,e.getMessage(),Toast.LENGTH_LONG).show();
         }
         //sp.edit().putStringSet("saved apps",checkedApps).apply();
     }
