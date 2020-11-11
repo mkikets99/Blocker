@@ -92,7 +92,7 @@ public class InfoLoader {
             FileWrite("savedapps",res);
         }catch(Exception e){
             e.printStackTrace();
-            Toast.makeText(a,e.getMessage(),Toast.LENGTH_LONG).show();
+            Toast.makeText(a,"Error(add):"+e.getMessage(),Toast.LENGTH_LONG).show();
         }
         //sp.edit().putStringSet("saved apps",checkedApps).apply();
     }
@@ -115,7 +115,7 @@ public class InfoLoader {
             FileWrite("savedapps",res);
         }catch(Exception e){
             e.printStackTrace();
-            Toast.makeText(a,e.getMessage(),Toast.LENGTH_LONG).show();
+            Toast.makeText(a,"Error(del):"+e.getMessage(),Toast.LENGTH_LONG).show();
         }
         //sp.edit().putStringSet("saved apps",checkedApps).apply();
     }
