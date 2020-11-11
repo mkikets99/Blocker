@@ -184,6 +184,11 @@ public class ListAllApps extends AppCompatActivity {
                         TextView name;
                         CheckBox cb;
                     }
+
+                    @Override
+                    public int getCount() {
+                        return vapps.size();
+                    }
                 };
             }
 

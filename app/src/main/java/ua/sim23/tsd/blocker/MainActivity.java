@@ -168,6 +168,11 @@ public class MainActivity extends AppCompatActivity {
 
                     }
 
+                    @Override
+                    public int getCount() {
+                        return apps.size();
+                    }
+
                     final class ViewHolderItem {
                         ImageView icon;
                         TextView label;
