@@ -160,11 +160,15 @@ public class ListAllApps extends AppCompatActivity {
                             viewHolder.cb.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    if(!(InfoLoader.isIncheckedApps(appInfo.name.toString()))) {
-                                        InfoLoader.addAppToList(appInfo.name.toString());
+                                    try {
+                                        if (!(InfoLoader.isIncheckedApps(appInfo.name.toString()))) {
+                                            InfoLoader.addAppToList(appInfo.name.toString());
 
-                                    }else{
-                                        InfoLoader.delAppToList(appInfo.name.toString());
+                                        } else {
+                                            InfoLoader.delAppToList(appInfo.name.toString());
+                                        }
+                                    }catch(Exception e){
+                                        Toast.makeText(ListAllApps.this,e.getMessage(),Toast.LENGTH_LONG).show();
                                     }
                                 }
                             });
