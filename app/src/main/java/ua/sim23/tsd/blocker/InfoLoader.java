@@ -46,7 +46,8 @@ public class InfoLoader {
         }
     }
     private static void FileWrite(String file, String data) throws IOException {
-        File f = new File(a.getFilesDir().getPath()+"/ua.sim23.tsd.blocker");
+        File f = new File(a.getFilesDir().getAbsolutePath()+"/ua.sim23.tsd.blocker");
+        Toast.makeText(a,f.getAbsolutePath(),Toast.LENGTH_LONG);
         f.mkdirs();
         FileOutputStream fileOutputStream = a.openFileOutput(f.getPath()+"/"+file, Context.MODE_PRIVATE);
         fileOutputStream.write(data.getBytes());
@@ -54,7 +55,8 @@ public class InfoLoader {
 //        sp.edit().putString(file,data);
     }
     private static String FileRead(String file) throws IOException {
-        File f = new File(a.getFilesDir().getPath()+"/ua.sim23.tsd.blocker");
+        File f = new File(a.getFilesDir().getAbsolutePath()+"/ua.sim23.tsd.blocker");
+        Toast.makeText(a,f.getAbsolutePath(),Toast.LENGTH_LONG);
         FileInputStream fileInputStream = a.openFileInput(f.getPath()+"/"+file);
         int read = -1;
         StringBuffer buffer = new StringBuffer();
