@@ -1,3 +1,4 @@
+
 package ua.sim23.tsd.blocker;
 
 import android.app.Activity;
@@ -5,27 +6,63 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.os.Environment;
 import android.util.ArraySet;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class InfoLoader {
-    private static Set<String> checkedApps;
+    private static List<String> checkedApps;
     private static SharedPreferences sp;
-    private static String Password;
     private static Activity a;
+    private static String Password;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public static void Load(MainActivity activity){
-        a = activity;
         sp = activity.getSharedPreferences(activity.getPackageName() , Context.MODE_PRIVATE);
-        checkedApps = sp.getStringSet("saved apps",new ArraySet<String>());
-        Password = sp.getString("password",null);
-
+        a = activity;
+        try {
+            String Apps = FileRead("savedapps");
+            checkedApps = Arrays.asList(Apps.split("#"));
+            if(checkedApps==null) checkedApps = new ArrayList<String>();
+            Password = FileRead("password");
+        }catch(Exception e){
+            e.printStackTrace();
+            checkedApps = new ArrayList<String>();
+        }
+    }
+    private static void FileWrite(String file, String data) throws IOException {
+        File f = new File(a.getFilesDir().getPath()+"/ua.sim23.tsd.blocker");
+        f.mkdirs();
+        FileOutputStream fileOutputStream = a.openFileOutput(f.getPath()+"/"+file, Context.MODE_PRIVATE);
+        fileOutputStream.write(data.getBytes());
+        fileOutputStream.close();
+//        sp.edit().putString(file,data);
+    }
+    private static String FileRead(String file) throws IOException {
+        File f = new File(a.getFilesDir().getPath()+"/ua.sim23.tsd.blocker");
+        FileInputStream fileInputStream = a.openFileInput(f.getPath()+"/"+file);
+        int read = -1;
+        StringBuffer buffer = new StringBuffer();
+        while((read =fileInputStream.read())!= -1){
+            buffer.append((char)read);
+        }
+        return buffer.toString();
+        //return sp.getString(file,null);
     }
     public static boolean passwordChack(String pass){
         return Password.equals(pass);
@@ -35,37 +72,63 @@ public class InfoLoader {
     }
     public static void setPassword(String password){
         Password = password;
-        boolean safe = sp.edit().putString("password",Password).commit();
-        if(safe){
-            Toast.makeText(a,"Password setted",Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(a,"Error while saving password",Toast.LENGTH_SHORT).show();
+        try {
+            FileWrite("password",password);
+        }catch(Exception e){
+            e.printStackTrace();
         }
+        //sp.edit().putString("password",Password).apply();
     }
 
     public static void addAppToList(String pack){
         checkedApps.add(pack);
-        boolean safe = sp.edit().putStringSet("saved apps",checkedApps).commit();
-        if(safe){
-            Toast.makeText(a,"apps saved",Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(a,"Error while saving apps",Toast.LENGTH_SHORT).show();
+        try {
+            String delim = "#";
+
+            StringBuilder sb = new StringBuilder();
+
+            int i = 0;
+            while (i < checkedApps.size() - 1) {
+                sb.append(checkedApps.get(i));
+                sb.append(delim);
+                i++;
+            }
+            sb.append(checkedApps.get(i));
+
+            String res = sb.toString();
+            FileWrite("savedapps",res);
+        }catch(Exception e){
+            e.printStackTrace();
         }
+        //sp.edit().putStringSet("saved apps",checkedApps).apply();
     }
     public static void delAppToList(String pack){
         checkedApps.remove(pack);
-        boolean safe = sp.edit().putStringSet("saved apps",checkedApps).commit();
-        if(safe){
-            Toast.makeText(a,"apps setted",Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(a,"Error while saving apps",Toast.LENGTH_SHORT).show();
+        try {
+            String delim = "#";
+
+            StringBuilder sb = new StringBuilder();
+
+            int i = 0;
+            while (i < checkedApps.size() - 1) {
+                sb.append(checkedApps.get(i));
+                sb.append(delim);
+                i++;
+            }
+            sb.append(checkedApps.get(i));
+
+            String res = sb.toString();
+            FileWrite("savedapps",res);
+        }catch(Exception e){
+            e.printStackTrace();
         }
+        //sp.edit().putStringSet("saved apps",checkedApps).apply();
     }
 
     public static boolean isIncheckedApps(String packname){
         return checkedApps.contains(packname);
     }
-    public static Set<String> getCheckedApps() {
+    public static List<String> getCheckedApps() {
         return checkedApps;
     }
 }
