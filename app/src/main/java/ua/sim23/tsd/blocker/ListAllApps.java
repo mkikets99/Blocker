@@ -169,7 +169,7 @@ public class ListAllApps extends AppCompatActivity {
                                             InfoLoader.delAppToList(appInfo.name.toString());
                                         }
                                     }catch(Exception e){
-                                        Toast.makeText(ListAllApps.this,e.getMessage(),Toast.LENGTH_LONG).show();
+                                        Toast.makeText(ListAllApps.this,e.toString(),Toast.LENGTH_LONG).show();
                                     }
                                 }
                             });
