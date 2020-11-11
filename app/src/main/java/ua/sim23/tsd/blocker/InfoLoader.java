@@ -47,7 +47,7 @@ public class InfoLoader {
     }
     private static void FileWrite(String file, String data) throws IOException {
         File f = new File(a.getFilesDir().getAbsolutePath()+"/ua.sim23.tsd.blocker");
-        Toast.makeText(a,f.getAbsolutePath(),Toast.LENGTH_LONG);
+        Toast.makeText(a,f.getAbsolutePath(),Toast.LENGTH_LONG).show();
         f.mkdirs();
         FileOutputStream fileOutputStream = a.openFileOutput(f.getAbsolutePath()+"/"+file, Context.MODE_PRIVATE);
         fileOutputStream.write(data.getBytes());
@@ -56,7 +56,7 @@ public class InfoLoader {
     }
     private static String FileRead(String file) throws IOException {
         File f = new File(a.getFilesDir().getAbsolutePath()+"/ua.sim23.tsd.blocker");
-        Toast.makeText(a,f.getAbsolutePath(),Toast.LENGTH_LONG);
+        Toast.makeText(a,f.getAbsolutePath(),Toast.LENGTH_LONG).show();
         FileInputStream fileInputStream = a.openFileInput(f.getAbsolutePath()+"/"+file);
         int read = -1;
         StringBuffer buffer = new StringBuffer();
@@ -78,7 +78,7 @@ public class InfoLoader {
             FileWrite("password",password);
         }catch(Exception e){
             e.printStackTrace();
-            Toast.makeText(a,e.getMessage(),Toast.LENGTH_LONG);
+            Toast.makeText(a,e.getMessage(),Toast.LENGTH_LONG).show();
         }
         //sp.edit().putString("password",Password).apply();
     }
@@ -102,7 +102,7 @@ public class InfoLoader {
             FileWrite("savedapps",res);
         }catch(Exception e){
             e.printStackTrace();
-            Toast.makeText(a,e.getMessage(),Toast.LENGTH_LONG);
+            Toast.makeText(a,e.getMessage(),Toast.LENGTH_LONG).show();
         }
         //sp.edit().putStringSet("saved apps",checkedApps).apply();
     }
@@ -125,7 +125,7 @@ public class InfoLoader {
             FileWrite("savedapps",res);
         }catch(Exception e){
             e.printStackTrace();
-            Toast.makeText(a,e.getMessage(),Toast.LENGTH_LONG);
+            Toast.makeText(a,e.getMessage(),Toast.LENGTH_LONG).show();
         }
         //sp.edit().putStringSet("saved apps",checkedApps).apply();
     }
