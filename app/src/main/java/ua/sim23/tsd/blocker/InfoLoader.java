@@ -97,7 +97,7 @@ public class InfoLoader {
             Toast.makeText(a,"5",Toast.LENGTH_SHORT).show();
         }catch(Exception e){
             //e.printStackTrace();
-            Toast.makeText(a,"Error(add):"+e.getMessage(),Toast.LENGTH_LONG).show();
+            Toast.makeText(a,"Error(add):"+e.toString(),Toast.LENGTH_LONG).show();
         }
         //sp.edit().putStringSet("saved apps",checkedApps).apply();
     }
